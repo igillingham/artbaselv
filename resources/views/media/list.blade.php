@@ -32,6 +32,16 @@
                                     </table>
                                         
 				</div>
+                                
+                    		<div class="panel">
+                                    <div class="panel-body">
+                                        <?php
+                                        $url = action('MediaController@create');
+                                        echo "<a href=\"".$url."\">Create new</a>";
+                                        ?>
+                                    </div>
+                                </div>
+
 			</div>
 		</div>
 	</div>

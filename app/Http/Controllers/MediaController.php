@@ -104,6 +104,19 @@ class MediaController extends Controller
         return Redirect::action('MediaController@index');
         }
 
+        
+    public function create()
+        {
+        $medium = new Medium();
+        //dd($gal);
+        if (!$medium)
+            {
+            return Redirect::action('MediaController@index');
+            }
+        return view('media/update')->with('medium', null);
+        }
+
+
     /**
      * Remove the specified resource from storage.
      *
