@@ -36,7 +36,7 @@
                     		<div class="panel">
                                     <div class="panel-body">
                                         <?php
-                                        $url = action('MediaController@create');
+                                        $url = action('MediaController@show_create');
                                         echo "<a href=\"".$url."\">Create new</a>";
                                         ?>
                                     </div>

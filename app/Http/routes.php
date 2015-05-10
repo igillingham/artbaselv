@@ -21,9 +21,10 @@ Route::post('galleries-update-submit/{id}', 'GalleriesController@update');
 
 Route::get('media/list', 'MediaController@index');
 Route::get('media/edit/{id}', 'MediaController@edit');
-Route::get('media/create', 'MediaController@create');
+Route::get('media/create', array( 'as' => 'medium.showcreate', 'uses' =>'MediaController@show_create'));
 //Route::post('media/update', 'MediaController@update');
-Route::post('media-update-submit/{id}', 'MediaController@update');
+Route::patch('media-update-submit/{id}', array('as' => 'medium.update', 'uses' => 'MediaController@update'));
+Route::post('media-update-submit', array('as' => 'medium.create', 'uses' => 'MediaController@update'));
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

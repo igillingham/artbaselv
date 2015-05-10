@@ -54,13 +54,15 @@ class MediaController extends Controller
     public function edit($id = null)
         {
         $medium = $this->model->find($id);
-        //dd($gal);
+
         if (!$medium)
             {
             return Redirect::action('MediaController@index');
             }
-        return view('media/update')->with('medium', $medium);
+        $action =   route('medium.update', ['id' => $id]);
+        return view('media/update')->with(array('medium' => $medium, 'action'=>$action, 'is_new' => false));
         }
+        
 
     /**
      * Update the specified resource in storage.
@@ -98,22 +100,27 @@ class MediaController extends Controller
                    $medium->medium = $mediumdata['medium'];
                    $medium->save();
                    }
-               }
             
+                }
+            else
+                {
+                $medium = new Medium();
+                if ($medium)
+                   {
+                   $medium->medium = $mediumdata['medium'];
+                   $medium->save();
+                   }
+                
+                }
             }
         return Redirect::action('MediaController@index');
         }
 
         
-    public function create()
+    public function show_create()
         {
-        $medium = new Medium();
-        //dd($gal);
-        if (!$medium)
-            {
-            return Redirect::action('MediaController@index');
-            }
-        return view('media/update')->with('medium', null);
+        $action =   route('medium.update', ['id' => '0']);
+        return view('media/create')->with(array('medium' => null, 'action'=>$action, 'is_new' => true));
         }
 
 
