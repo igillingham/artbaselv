@@ -16,13 +16,15 @@ Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
 Route::get('galleries/list', 'GalleriesController@index');
 Route::get('galleries/edit/{id}', 'GalleriesController@edit');
-//Route::post('galleries/update', 'GalleriesController@update');
-Route::post('galleries-update-submit/{id}', 'GalleriesController@update');
+Route::get('galleries/delete/{id}', array('uses' => 'GalleriesController@destroy', 'as' => 'gallery.delete'));
+Route::get('galleries/create', array( 'as' => 'gallery.showcreate', 'uses' =>'GalleriesController@show_create'));
+Route::patch('galleries-update-submit/{id}', array('as' => 'gallery.update', 'uses' => 'GalleriesController@update'));
+Route::post('galleries-update-submit', array('as' => 'gallery.create', 'uses' => 'GalleriesController@update'));
 
 Route::get('media/list', 'MediaController@index');
 Route::get('media/edit/{id}', 'MediaController@edit');
+Route::get('media/delete/{id}', array('uses' => 'MediaController@destroy', 'as' => 'medium.delete'));
 Route::get('media/create', array( 'as' => 'medium.showcreate', 'uses' =>'MediaController@show_create'));
-//Route::post('media/update', 'MediaController@update');
 Route::patch('media-update-submit/{id}', array('as' => 'medium.update', 'uses' => 'MediaController@update'));
 Route::post('media-update-submit', array('as' => 'medium.create', 'uses' => 'MediaController@update'));
 

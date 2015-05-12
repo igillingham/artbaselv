@@ -17,17 +17,16 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            <?php 
-                                                foreach ($mediumlist as $medium)
-                                                  {
-                                                  echo '<tr>';
-                                                  echo '<td>';
-                                                  $url = action('MediaController@edit', $medium->id);
-                                                  echo "<a href=\"".$url."\">".$medium->medium."</a>";
-                                                  echo '</td>';
-                                                  echo '</tr>';
-                                                  }
-                                            ?>
+                                                @foreach ($mediumlist as $medium)
+                                                  <tr>
+                                                  <td>
+                                                  <a href="{{action('MediaController@edit', $medium->id)}}">{{$medium->medium}}</a>
+                                                  </td>
+                                                  <td>
+                                                  <a href="{{ route('medium.delete', $medium->id) }}" onclick="if(!confirm('Are you sure to delete this item?')){return false;};" title="Delete this Item"><i class="glyphicon glyphicon-trash"></i></a>
+                                                  </td>
+                                                  </tr>
+                                                @endforeach
                                         </tbody>                    
                                     </table>
                                         
@@ -35,10 +34,7 @@
                                 
                     		<div class="panel">
                                     <div class="panel-body">
-                                        <?php
-                                        $url = action('MediaController@show_create');
-                                        echo "<a href=\"".$url."\">Create new</a>";
-                                        ?>
+                                        <a href="{{action('MediaController@show_create')}}">Create new</a>
                                     </div>
                                 </div>
 

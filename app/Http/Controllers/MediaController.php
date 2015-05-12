@@ -132,7 +132,12 @@ class MediaController extends Controller
      */
     public function destroy($id)
         {
-        //
+        $medium = $this->model->find($id);
+        if ($medium)
+            {
+            $medium->delete();
+            }
+        return Redirect::action('MediaController@index');
         }
 
     }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Gallery;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
+use Illuminate\Support\Facades\Redirect;
 use Input;
 use Validator;
 
@@ -58,7 +59,8 @@ class GalleriesController extends Controller
             {
             return Redirect::action('GalleriesController@index');
             }
-        return view('galleries/update')->with('gal', $gal);
+        $action =   route('gallery.update', ['id' => $id]);
+        return view('galleries/update')->with(array('gal' => $gal, 'action'=>$action, 'is_new' => false));
         }
 
     /**
@@ -72,7 +74,7 @@ class GalleriesController extends Controller
         // validate the info, create rules for the inputs
         $rules = array(
             'gallery_name' => 'required', // make sure the FE name field is not empty
-            'street' => 'required',
+            'street' => 'string',
             'town' => 'required'
         );
 
@@ -108,6 +110,13 @@ class GalleriesController extends Controller
         return Redirect::action('GalleriesController@index');
         }
 
+    public function show_create()
+        {
+        $action =   route('gallery.update', ['id' => '0']);
+        return view('galleries/create')->with(array('gal' => null, 'action'=>$action, 'is_new' => true));
+        }
+
+
     /**
      * Remove the specified resource from storage.
      *
@@ -116,7 +125,12 @@ class GalleriesController extends Controller
      */
     public function destroy($id)
         {
-        //
+        $gallery = $this->model->find($id);
+        if ($gallery)
+            {
+            $gallery->delete();
+            }
+        return Redirect::action('GalleriesController@index');
         }
 
     }

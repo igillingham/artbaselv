@@ -16,37 +16,42 @@
                                           <th class="col-md-3">Gallery Name</th>
                                           <th class="col-md-1">Street</th>
                                           <th class="col-md-2">Town</th>
-                                          <th class="col-md-3">Posycode</th>
+                                          <th class="col-md-3">Postcode</th>
+                                          <th class="col-md-3">Actions</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            <?php 
-                                                foreach ($gallerylist as $gal)
-                                                  {
-                                                  echo '<tr>';
-                                                  echo '<td>';
-                                                  $url = action('GalleriesController@edit', $gal->id);
-                                                  echo "<a href=\"".$url."\">Edit</a>";
-                                                  echo $gal->gallery_name;
-                                                  echo '</td>';
-                                                  echo '<td>';
-                                                  echo $gal->street;
-                                                  echo '</td>';
-                                                  echo '<td>';
-                                                  //echo $fe->fe_type;
-                                                  //dd ($fe->beam_type->name);
-                                                  //var_dump($fe->beam_type);
-                                                  echo $gal->town;
-                                                  echo '<td>';
-                                                  echo $gal->postcode;
-                                                  echo '</td>';
-                                                  echo '</tr>';
-                                                  }
-                                            ?>
+                                               @foreach ($gallerylist as $gal)
+                                                  <tr>
+                                                  <td>
+                                                    <a href="{{action('GalleriesController@edit', $gal->id)}}">{{$gal->gallery_name}}</a>
+                                                  </td>
+                                                  <td>
+                                                      {{$gal->street}}
+                                                  </td>
+                                                  <td>
+                                                      {{$gal->town}}
+                                                  </td>
+                                                  <td>
+                                                      {{$gal->postcode}}
+                                                  </td>
+                                                  <td>
+                                                    <a href="{{ route('gallery.delete', $gal->id) }}" onclick="if(!confirm('Are you sure to delete this item?')){return false;};" title="Delete this Item"><i class="glyphicon glyphicon-trash"></i></a>
+                                                  </td>
+                                                  </tr>
+                                                @endforeach
+                                            
                                         </tbody>                    
                                     </table>
                                         
 				</div>
+                                
+                    		<div class="panel">
+                                    <div class="panel-body">
+                                        <a href="{{action('GalleriesController@show_create')}}">Create new</a>
+                                    </div>
+                                </div>
+                                
 			</div>
 		</div>
 	</div>
